@@ -23,6 +23,15 @@ jobs:
         with:
           gradle-version: '8.7'
 
+      # 从 GitHub Secrets 还原签名 keystore（仓库内不存 keystore）
+      - name: Restore keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > app/keystore.jks
+          echo "KEYSTORE_FILE=app/keystore.jks" >> $GITHUB_ENV
+          echo "KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}" >> $GITHUB_ENV
+          echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}" >> $GITHUB_ENV
+          echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> $GITHUB_ENV
+
       - name: Build signed release APK
         run: gradle assembleRelease --no-daemon --stacktrace
 

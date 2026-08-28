@@ -14,13 +14,13 @@ android {
         versionName "1.0"
     }
 
-    // 签名配置：keystore.jks 已随仓库提交（私有仓库）
+    // 签名配置：从环境变量读取（本地或 CI 提供），仓库内不存任何密钥
     signingConfigs {
         release {
-            storeFile file("keystore.jks")
-            storePassword "md3min123"
-            keyAlias "md3key"
-            keyPassword "md3min123"
+            storeFile file(System.getenv("KEYSTORE_FILE") ?: "keystore.jks")
+            storePassword System.getenv("KEYSTORE_PASSWORD") ?: ""
+            keyAlias System.getenv("KEY_ALIAS") ?: ""
+            keyPassword System.getenv("KEY_PASSWORD") ?: ""
         }
     }
 

@@ -6,3 +6,5 @@ local.properties
 .DS_Store
 captures/
 .cxx/
+# 签名密钥不入库（由 CI 从 GitHub Secrets 还原）
+app/keystore.jks
