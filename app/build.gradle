@@ -10,13 +10,24 @@ android {
         applicationId "com.example.md3min"
         minSdk 24
         targetSdk 34
-        versionCode 1
+        versionCode 2
         versionName "1.0"
+    }
+
+    // 签名配置：keystore.jks 已随仓库提交（私有仓库）
+    signingConfigs {
+        release {
+            storeFile file("keystore.jks")
+            storePassword "md3min123"
+            keyAlias "md3key"
+            keyPassword "md3min123"
+        }
     }
 
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.release
         }
     }
 
@@ -28,5 +39,5 @@ android {
 
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'com.google.android.material:material:1.12.0' // MD3 主题来源
+    implementation 'com.google.android.material:material:1.12.0'
 }
